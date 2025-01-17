@@ -13,6 +13,6 @@ terraform {
 # Provider block specifies the AzureRM provider and its specific configurations
 provider "azurerm" {
   features {}
-  use_cli = true
+  # Using environment variables to authenticate
 }
 
