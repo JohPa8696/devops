@@ -32,3 +32,22 @@ variable "allowed_locations" {
   type = list(string)
   default = ["West Europe", "East US", "West US", "SouthEastAsia"]
 }
+
+variable "resource_tags" {
+  type = map(string)
+  default = {
+    client = "internal"
+    environment = "dev"
+    project = "loyalty"
+    service = "misc"
+  }
+}
+
+variable "network_config" {
+  # type = object({
+  #   address_space = string
+  #   subnet_prefixes = list(string)
+  # })
+  type = tuple([ string, string ])
+  default = ["10.0.0.0/16", "10.0.2.0/24"]
+}

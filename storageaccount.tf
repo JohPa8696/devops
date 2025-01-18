@@ -1,7 +1,7 @@
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.allowed_locations[3]
-  tags     = local.common_tags
+  tags     = var.resource_tags
 }
 
 resource "azurerm_storage_account" "storage" {
@@ -11,5 +11,5 @@ resource "azurerm_storage_account" "storage" {
   location                 = var.allowed_locations[3]
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  tags                     = local.common_tags
+  tags                     = var.resource_tags
 }
