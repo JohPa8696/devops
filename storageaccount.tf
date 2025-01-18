@@ -1,6 +1,7 @@
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = "SouthEastAsia"
+  tags     = local.common_tags
 }
 
 resource "azurerm_storage_account" "storage" {
