@@ -6,15 +6,6 @@ terraform {
       version = "~> 4.16.0"         # It's better to lock the version to a specific version, because of potential breaking changes
     }                               # ~> only allow the rightmost to increment.
   }
-
-  backend "azurerm" {
-    resource_group_name  = "terraform-management-rg"
-    storage_account_name = "jpnztfsa"
-    container_name      = "tfstate"
-    key                = "terraform.tfstate"
-  }
-
-  required_version = ">=1.0.0"
 }
 
 # Provider block specifies the AzureRM provider and its specific configurations
