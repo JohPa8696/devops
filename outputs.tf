@@ -3,7 +3,8 @@ output "resource_group_name" {
 }
 
 output "storage_account_name" {
-  value = azurerm_storage_account.storage.name
+  # How to list multiple resources with count and output? 
+  value = azurerm_storage_account.storage[0].name
 }
 
 output "storage_account_endpoint" {

@@ -1,6 +1,6 @@
 resource "azurerm_virtual_network" "main" {
   name                = "${var.environment}-network"
-  address_space       = [element(var.network_config,0)]
+  address_space       = [element(var.network_config, 0)]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
@@ -9,7 +9,7 @@ resource "azurerm_subnet" "internal" {
   name                 = "internal"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes     = [element(var.network_config,1)]
+  address_prefixes     = [element(var.network_config, 1)]
 }
 
 resource "azurerm_network_interface" "main" {
