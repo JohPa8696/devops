@@ -4,9 +4,10 @@ resource "azurerm_resource_group" "rg" {
   tags     = var.resource_tags
 }
 
-resource "azurerm_storage_account" "storage" {
+resource "azurerm_storage_account" "storages" {
+  count = length(var.storage_account_names)
   depends_on               = [azurerm_resource_group.rg]
-  name                     = var.storage_account_name
+  name                     = var.storage_account_names[count.index]
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = var.allowed_locations[3]
   account_tier             = "Standard"

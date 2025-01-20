@@ -3,9 +3,9 @@ variable "resource_group_name" {
   default = "rg"
 }
 
-variable "storage_account_name" {
-  type = string
-  default = "sa"
+variable "storage_account_names" {
+  type = list(string)
+  default = ["sa1","sa2"]
 }
 
 variable "environment" {
