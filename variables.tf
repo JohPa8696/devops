@@ -8,6 +8,11 @@ variable "storage_account_names" {
   default = ["sa1", "sa2"]
 }
 
+variable "sa_location" {
+  type = string
+  default = "SouthEast Asia"
+}
+
 variable "environment" {
   type    = string
   default = "dev"
