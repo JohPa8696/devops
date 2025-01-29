@@ -16,6 +16,10 @@ variable "sa_location" {
 variable "environment" {
   type    = string
   default = "dev"
+  validation {
+    condition     = contains(["dev", "stage", "prod"], var.environment)
+    error_message = "The environment must be one of the allowed environments."
+  }
 }
 
 variable "disk_size_gb" {
@@ -60,4 +64,15 @@ variable "network_config" {
 variable "is_create_vm" {
   type    = bool
   default = false
+}
+
+
+
+variable "vm_sizes" {
+  type    = map(string)
+  default = {
+    dev = "Standard_B1s"
+    stage = "Standard_B2s"
+    prod = "Standard_B4s"
+  }
 }
