@@ -16,3 +16,7 @@ output "storage_account_name" {
 output "storage_account_endpoints" {
   value = [for i in azurerm_storage_account.storages : i.primary_web_endpoint]
 }
+
+output "nsg_rules" {
+  value = local.nsg_rules[*]
+}
