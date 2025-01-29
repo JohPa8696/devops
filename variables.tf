@@ -9,7 +9,7 @@ variable "storage_account_names" {
 }
 
 variable "sa_location" {
-  type = string
+  type    = string
   default = "SouthEast Asia"
 }
 
@@ -35,7 +35,7 @@ variable "is_delete_data_disks_on_termination" {
 
 variable "allowed_locations" {
   type    = list(string)
-  default = ["West Europe", "East US", "West US", "SouthEastAsia"]
+  default = ["West Europe", "East US", "West US", "SouthEast Asia"]
 }
 
 variable "resource_tags" {

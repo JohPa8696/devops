@@ -10,9 +10,9 @@ output "resource_group_name" {
 
 // Using for loop, mainly used for output.
 output "storage_account_name" {
-    value = [for i in azurerm_storage_account.storages: i.name]
+  value = [for i in azurerm_storage_account.storages : i.name]
 }
 
-output "storage_account_endpoint" {
-  value = azurerm_storage_account.storage.primary_web_endpoint
+output "storage_account_endpoints" {
+  value = [for i in azurerm_storage_account.storages : i.primary_web_endpoint]
 }
