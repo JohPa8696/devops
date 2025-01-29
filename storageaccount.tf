@@ -15,7 +15,7 @@ resource "azurerm_storage_account" "storages" {
     create_before_destroy = true                           // Can use this to make sure there is no down time on the resource
     ignore_changes        = [tags, account_tier, location] // Use this to make sure changes to the atribute are ignored.
     replace_triggered_by  = [azurerm_resource_group.rg]    // Whenever the resource group changes, this resource will be replaced.postcondition
-    prevent_destroy       = false                           // Enforce rule to never distroy the condition.
+    prevent_destroy       = false                          // Enforce rule to never distroy the condition.
     precondition {
       condition     = contains(var.allowed_locations, var.sa_location)
       error_message = "Please make sure the locaiton is valid"

@@ -1,5 +1,5 @@
 resource "azurerm_virtual_network" "main" {
-      count = var.is_create_vm ? 1 : 0
+  count               = var.is_create_vm ? 1 : 0
   name                = "${var.environment}-network"
   address_space       = [element(var.network_config, 0)]
   location            = azurerm_resource_group.rg.location
@@ -7,7 +7,7 @@ resource "azurerm_virtual_network" "main" {
 }
 
 resource "azurerm_subnet" "internal" {
-      count = var.is_create_vm ? 1 : 0
+  count                = var.is_create_vm ? 1 : 0
   name                 = "internal"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.main[0].name
@@ -15,7 +15,7 @@ resource "azurerm_subnet" "internal" {
 }
 
 resource "azurerm_network_interface" "main" {
-      count = var.is_create_vm ? 1 : 0
+  count               = var.is_create_vm ? 1 : 0
   name                = "${var.environment}-nic"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -28,7 +28,7 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_virtual_machine" "main" {
-  count = var.is_create_vm ? 1 : 0
+  count                 = var.is_create_vm ? 1 : 0
   name                  = "${var.environment}-vm"
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
