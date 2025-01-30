@@ -20,3 +20,7 @@ output "storage_account_endpoints" {
 output "nsg_rules" {
   value = local.nsg_rules[*]
 }
+
+output "vm_size" {
+  value = azurerm_virtual_machine.main[0].vm_size
+}

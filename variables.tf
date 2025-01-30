@@ -76,3 +76,22 @@ variable "vm_sizes" {
     prod = "Standard_B4s"
   }
 }
+
+variable "vm_size" {
+  type    = string
+  default = "Standard_B1s"
+  validation {
+    condition     = strcontains(var.vm_size, "standard")
+    error_message = "The environment must be one of the allowed environments."
+  }
+ validation {
+    condition     = length(var.vm_size) >= 2 && length(var.vm_size) <= 20
+    error_message = "VM size must be between 2 and 20 characters long"
+  }
+}
+
+variable "credentials" {
+    type = string
+    default = "adminuser"
+    sensitive = true // this will hide the value in the output
+}
