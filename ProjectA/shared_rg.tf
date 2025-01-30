@@ -4,6 +4,7 @@ resource "azurerm_resource_group" "shared_rg" {
   tags = local.tags
 
   lifecycle {
+    ignore_changes = [ tags ]
     precondition {
       condition = var.environment == "dev"
       error_message = "This resource group can only be deleted in the dev environment"
