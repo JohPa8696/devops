@@ -27,3 +27,18 @@ variable "security_rules" {
   type        = list(any)
   description = "The security rules to apply to the NSG"
 }
+
+
+variable "allowed_vm_size" {
+  type        = map(string)
+  description = "The size of the VM to deploy"
+  default     = {
+    "dev" = "Standard_B2s"
+    "stage" = "Standard_B2s"
+    "prod" = "Standard_B2s"
+  }
+  validation {
+    condition = contains(keys(var.allowed_vm_size), var.environment)
+    error_message = "Invalid environment. Please use 'dev', 'stage', or 'prod'."
+  }
+}
