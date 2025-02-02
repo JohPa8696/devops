@@ -1,23 +1,20 @@
-resource "null_resource" "vnet_tracker" {
-  triggers = {
-    config_hash = local.vnet_hash
-  }
+resource "azurerm_virtual_network" "vnet" {
+  name                = "${var.environment}-vnet"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.shared_rg.name
+  address_space       = ["10.0.0.0/16"]
+  dns_servers         = ["10.0.0.4", "10.0.0.5"]
+
+  tags = local.tags
 
   lifecycle {
-    ignore_changes = [triggers]
+    ignore_changes = [tags]
   }
 }
 
-resource "azurerm_virtual_network" "vnet" {
-  name                = local.vnet_config.name
-  location            = local.vnet_config.location
-  resource_group_name = local.vnet_config.resource_group_name
-  address_space       = local.vnet_config.address_space
-  dns_servers         = local.vnet_config.dns_servers
-
-  tags = merge(local.tags, {
-    modified_time = null_resource.vnet_tracker.id != null ? timestamp() : null
-  })
+resource "azurerm_subnet" "private_subnet" {
+  name                 = "${var.environment}-private-subnet"
+  resource_group_name  = azurerm_resource_group.shared_rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.1.0/24"]
 }
-
-
