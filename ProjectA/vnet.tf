@@ -19,7 +19,6 @@ resource "azurerm_subnet" "private_subnet" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
-
 resource "azurerm_network_security_group" "private_subnet_nsg" {
   name                = "${var.environment}-private-subnet-nsg"
   location            = azurerm_resource_group.shared_rg.location
@@ -43,8 +42,6 @@ resource "azurerm_network_security_group" "private_subnet_nsg" {
 
   tags = local.tags
 }
-
-
 
 resource "azurerm_subnet_network_security_group_association" "private_subnet_nsg_association" {
   subnet_id                 = azurerm_subnet.private_subnet.id
