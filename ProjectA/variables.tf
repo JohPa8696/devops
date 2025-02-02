@@ -22,3 +22,8 @@ variable "location" {
     error_message = "Invalid location. Please choose from the allowed regions"
   }
 }
+
+variable "security_rules" {
+  type        = list(any)
+  description = "The security rules to apply to the NSG"
+}
