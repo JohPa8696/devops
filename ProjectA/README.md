@@ -1,5 +1,4 @@
-- Steps
-
+# Simple azure infra with vms
 1. Create a new resource group
 2. Create a new virtual network
 3. Create a new subnet
