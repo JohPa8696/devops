@@ -5,6 +5,7 @@ locals {
     environment = "dev"
     project     = "loyalty"
     service     = "misc"
+    creation_time = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
   }
 }
 
