@@ -5,6 +5,7 @@ resource "azurerm_public_ip" "lb_pip" {
   resource_group_name = azurerm_resource_group.shared_rg.name
   allocation_method   = "Static" # Required for Standard SKU
   sku                 = "Standard"
+  zones               = ["1", "2", "3"]
   tags                = local.tags
 }
 

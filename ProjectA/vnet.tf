@@ -41,9 +41,59 @@ resource "azurerm_network_security_group" "private_subnet_nsg" {
   }
 
   tags = local.tags
+
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "private_subnet_nsg_association" {
   subnet_id                 = azurerm_subnet.private_subnet.id
   network_security_group_id = azurerm_network_security_group.private_subnet_nsg.id
+}
+
+
+# Create Public IP for NAT Gateway
+resource "azurerm_public_ip" "nat_gateway_pip" {
+  name                = "${var.environment}-nat-gateway-pip"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.shared_rg.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  zones               = ["1"]
+
+  tags = local.tags
+
+  lifecycle {
+    ignore_changes = [tags]
+  }
+}
+
+# Create NAT Gateway
+resource "azurerm_nat_gateway" "nat_gateway" {
+  name                    = "${var.environment}-nat-gateway"
+  location                = var.location
+  resource_group_name     = azurerm_resource_group.shared_rg.name
+  sku_name                = "Standard"
+  idle_timeout_in_minutes = 10
+
+  tags = local.tags
+
+  lifecycle {
+    ignore_changes = [tags]
+  }
+}
+
+
+# Associate Public IP with NAT Gateway
+resource "azurerm_nat_gateway_public_ip_association" "nat_gateway_pip_association" {
+  nat_gateway_id       = azurerm_nat_gateway.nat_gateway.id
+  public_ip_address_id = azurerm_public_ip.nat_gateway_pip.id
+}
+
+
+# Add this new resource after the subnet definition
+resource "azurerm_subnet_nat_gateway_association" "subnet_nat_association" {
+  subnet_id      = azurerm_subnet.private_subnet.id
+  nat_gateway_id = azurerm_nat_gateway.nat_gateway.id
 }

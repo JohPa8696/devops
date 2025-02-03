@@ -32,13 +32,13 @@ variable "security_rules" {
 variable "allowed_vm_size" {
   type        = map(string)
   description = "The size of the VM to deploy"
-  default     = {
-    "dev" = "Standard_B2s"
+  default = {
+    "dev"   = "Standard_B2s"
     "stage" = "Standard_B2s"
-    "prod" = "Standard_B2s"
+    "prod"  = "Standard_B2s"
   }
   validation {
-    condition = contains(keys(var.allowed_vm_size), var.environment)
+    condition     = contains(keys(var.allowed_vm_size), var.environment)
     error_message = "Invalid environment. Please use 'dev', 'stage', or 'prod'."
   }
 }

@@ -4,7 +4,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
   resource_group_name = azurerm_resource_group.shared_rg.name
   sku                 = lookup(var.allowed_vm_size, var.environment, "Standard_B1s")
   admin_username      = "adminuser"
-
+  instances           = 1
   admin_ssh_key {
     username   = "adminuser"
     public_key = file("~/.ssh/vmss_id_rsa.pub")
@@ -35,6 +35,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
   }
 
   tags = local.tags
+
+  lifecycle {
+    ignore_changes = [tags, instances]
+  }
 }
 
 
@@ -44,7 +48,6 @@ resource "azurerm_monitor_autoscale_setting" "vmss_autoscale" {
   resource_group_name = azurerm_resource_group.shared_rg.name
   location            = var.location
   target_resource_id  = azurerm_linux_virtual_machine_scale_set.vmss.id
-
   profile {
     name = "AutoScale"
 
